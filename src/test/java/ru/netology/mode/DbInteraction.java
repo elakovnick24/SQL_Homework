@@ -52,7 +52,9 @@ public class DbInteraction {
                 while (rs.next()) {
                     val id = rs.getInt("id");
                     val number = rs.getString("number");
-                    val balanceInKopecks = rs.getInt("balance_in_kopecks"); // TODO: сложить всё в список
+                    val balanceInKopecks = rs.getInt("balance_in_kopecks");
+                    // TODO: сложить всё в список
+                    System.out.println(id + " " + number + " " + balanceInKopecks);
                 }
             }
         }
