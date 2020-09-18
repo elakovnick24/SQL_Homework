@@ -12,4 +12,3 @@ services:
      - MYSQL_USER=app
      - MYSQL_PASSWORD=pass
 
-
