@@ -14,7 +14,6 @@ public class ProcessAuth {
     void shouldTransferMoneyBetweenOwnCards() throws SQLException {
 
         val loginPage = open("http://localhost:9999", LoginPage.class);
-// можно заменить на val loginPage = open("http://localhost:9999", LoginPageV2.class);
         val authInfo = DataHelper.getAuthInfo();
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
