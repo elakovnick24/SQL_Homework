@@ -18,15 +18,16 @@ public class DbInteractDbUtils {
     void setUp() throws SQLException {
         val faker = new Faker();
         val runner = new QueryRunner();
-        val dataSQL = "INSERT INTO users(login, password) VALUES (?, ?);";
-        try (
+        val dataSQL = "INSERT INTO users(login, password, id) VALUES (?, ?, ?);";
+
+/*        try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://192.168.99.100:3306/app", "app", "pass");
+                        "jdbc:mysql://127.0.0.1:3306/app", "app", "pass");
         ) {
 // обычная вставка
-            runner.update(conn, dataSQL, faker.name().username(), "pass");
-            runner.update(conn, dataSQL, faker.name().username(), "pass");
-        }
+            runner.update(conn, dataSQL, faker.name().username(), "pass", 1234);
+            runner.update(conn, dataSQL, faker.name().username(), "pass", 12345);
+        }*/
     }
 
     @Test
@@ -36,7 +37,7 @@ public class DbInteractDbUtils {
         val runner = new QueryRunner();
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://192.168.99.100:3306/app", "app", "pass");
+                        "jdbc:mysql://127.0.0.1:3306/app", "app", "pass");
         ) {
             val count = runner.query(conn, countSQL, new ScalarHandler<>());
             System.out.println(count);
@@ -44,6 +45,22 @@ public class DbInteractDbUtils {
             System.out.println(first);
             val all = runner.query(conn, usersSQL, new BeanListHandler<>(User.class));
             System.out.println(all);
+            stubTest1();
+        }
+    }
+
+    public static String stubTest1() throws SQLException {
+     val idSQL = "SELECT id FROM users WHERE login = 'vasya';";
+     val authSQL = "SELECT code FROM auth_codes WHERE user_id = (?)";
+     val runner = new QueryRunner();
+        try (
+                val conn = DriverManager.getConnection(
+                        "jdbc:mysql://127.0.0.1:3306/app", "app", "pass");
+        ) {
+            val idUser = runner.query(conn, idSQL,new ScalarHandler<String>());
+            val codes = runner.query(conn, authSQL, new ScalarHandler<String>(),idUser);
+            System.out.println(codes);
+            return codes;
         }
     }
 }

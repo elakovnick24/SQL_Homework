@@ -1,8 +1,12 @@
 package data;
 
 import lombok.Value;
+import ru.netology.DbInteractDbUtils;
+
+import java.sql.SQLException;
 
 public class DataHelper {
+
     private DataHelper() {
     }
 
@@ -14,8 +18,8 @@ public class DataHelper {
         return new AuthInfo("petya", "123qwerty");
     }
 
-    public static VerificationCode getVerificationCodeFor(AuthInfo authInfo) {
-        return new VerificationCode("12345");
+    public static VerificationCode getVerificationCodeFor(AuthInfo authInfo) throws SQLException {
+        return new VerificationCode(DbInteractDbUtils.stubTest1());
     }
 
     @Value
