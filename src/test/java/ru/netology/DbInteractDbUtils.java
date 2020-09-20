@@ -20,14 +20,14 @@ public class DbInteractDbUtils {
         val runner = new QueryRunner();
         val dataSQL = "INSERT INTO users(login, password, id) VALUES (?, ?, ?);";
 
-/*        try (
+        try (
                 val conn = DriverManager.getConnection(
                         "jdbc:mysql://127.0.0.1:3306/app", "app", "pass");
         ) {
 // обычная вставка
             runner.update(conn, dataSQL, faker.name().username(), "pass", 1234);
             runner.update(conn, dataSQL, faker.name().username(), "pass", 12345);
-        }*/
+        }
     }
 
     @Test
